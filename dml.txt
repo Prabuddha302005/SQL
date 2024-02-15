@@ -1,0 +1,298 @@
+Microsoft Windows [Version 10.0.19045.3930]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 5.5.5-10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use itv;
+Database changed
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232322);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from people;
++----+-------+------+--------+------------+
+| id | name  | age  | city   | contact    |
++----+-------+------+--------+------------+
+|  1 | Rohit |   33 | Mumbai | 2323232322 |
++----+-------+------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232322);
+ERROR 1062 (23000): Duplicate entry '2323232322' for key 'contact'
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232321);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++----+-------+------+--------+------------+
+| id | name  | age  | city   | contact    |
++----+-------+------+--------+------------+
+|  1 | Rohit |   33 | Mumbai | 2323232322 |
+|  3 | Rohit |   33 | Mumbai | 2323232321 |
++----+-------+------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232323);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++----+-------+------+--------+------------+
+| id | name  | age  | city   | contact    |
++----+-------+------+--------+------------+
+|  1 | Rohit |   33 | Mumbai | 2323232322 |
+|  3 | Rohit |   33 | Mumbai | 2323232321 |
+|  4 | Rohit |   33 | Mumbai | 2323232323 |
++----+-------+------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232324);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++----+-------+------+--------+------------+
+| id | name  | age  | city   | contact    |
++----+-------+------+--------+------------+
+|  1 | Rohit |   33 | Mumbai | 2323232322 |
+|  3 | Rohit |   33 | Mumbai | 2323232321 |
+|  4 | Rohit |   33 | Mumbai | 2323232323 |
+|  5 | Rohit |   33 | Mumbai | 2323232324 |
++----+-------+------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232323);
+ERROR 1062 (23000): Duplicate entry '2323232323' for key 'contact'
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232326);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++----+-------+------+--------+------------+
+| id | name  | age  | city   | contact    |
++----+-------+------+--------+------------+
+|  1 | Rohit |   33 | Mumbai | 2323232322 |
+|  3 | Rohit |   33 | Mumbai | 2323232321 |
+|  4 | Rohit |   33 | Mumbai | 2323232323 |
+|  5 | Rohit |   33 | Mumbai | 2323232324 |
+|  7 | Rohit |   33 | Mumbai | 2323232326 |
++----+-------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table people auto_increment = 500;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from people;
++----+-------+------+--------+------------+
+| id | name  | age  | city   | contact    |
++----+-------+------+--------+------------+
+|  1 | Rohit |   33 | Mumbai | 2323232322 |
+|  3 | Rohit |   33 | Mumbai | 2323232321 |
+|  4 | Rohit |   33 | Mumbai | 2323232323 |
+|  5 | Rohit |   33 | Mumbai | 2323232324 |
+|  7 | Rohit |   33 | Mumbai | 2323232326 |
++----+-------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232327);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from people;
++-----+-------+------+--------+------------+
+| id  | name  | age  | city   | contact    |
++-----+-------+------+--------+------------+
+|   1 | Rohit |   33 | Mumbai | 2323232322 |
+|   3 | Rohit |   33 | Mumbai | 2323232321 |
+|   4 | Rohit |   33 | Mumbai | 2323232323 |
+|   5 | Rohit |   33 | Mumbai | 2323232324 |
+|   7 | Rohit |   33 | Mumbai | 2323232326 |
+| 500 | Rohit |   33 | Mumbai | 2323232327 |
++-----+-------+------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',33,2323232328);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++-----+-------+------+--------+------------+
+| id  | name  | age  | city   | contact    |
++-----+-------+------+--------+------------+
+|   1 | Rohit |   33 | Mumbai | 2323232322 |
+|   3 | Rohit |   33 | Mumbai | 2323232321 |
+|   4 | Rohit |   33 | Mumbai | 2323232323 |
+|   5 | Rohit |   33 | Mumbai | 2323232324 |
+|   7 | Rohit |   33 | Mumbai | 2323232326 |
+| 500 | Rohit |   33 | Mumbai | 2323232327 |
+| 501 | Rohit |   33 | Mumbai | 2323232328 |
++-----+-------+------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into people values(2,'raj',33,'Delhi',24234322342);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++-----+-------+------+--------+-------------+
+| id  | name  | age  | city   | contact     |
++-----+-------+------+--------+-------------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 |
+|   2 | raj   |   33 | Delhi  | 24234322342 |
+|   3 | Rohit |   33 | Mumbai |  2323232321 |
+|   4 | Rohit |   33 | Mumbai |  2323232323 |
+|   5 | Rohit |   33 | Mumbai |  2323232324 |
+|   7 | Rohit |   33 | Mumbai |  2323232326 |
+| 500 | Rohit |   33 | Mumbai |  2323232327 |
+| 501 | Rohit |   33 | Mumbai |  2323232328 |
++-----+-------+------+--------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',16,2323232329);
+ERROR 4025 (23000): CONSTRAINT `people.age` failed for `itv`.`people`
+mysql> select * from people;
++-----+-------+------+--------+-------------+
+| id  | name  | age  | city   | contact     |
++-----+-------+------+--------+-------------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 |
+|   2 | raj   |   33 | Delhi  | 24234322342 |
+|   3 | Rohit |   33 | Mumbai |  2323232321 |
+|   4 | Rohit |   33 | Mumbai |  2323232323 |
+|   5 | Rohit |   33 | Mumbai |  2323232324 |
+|   7 | Rohit |   33 | Mumbai |  2323232326 |
+| 500 | Rohit |   33 | Mumbai |  2323232327 |
+| 501 | Rohit |   33 | Mumbai |  2323232328 |
++-----+-------+------+--------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into people(name,age,contact) values('Rohit',18,2323232329);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++-----+-------+------+--------+-------------+
+| id  | name  | age  | city   | contact     |
++-----+-------+------+--------+-------------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 |
+|   2 | raj   |   33 | Delhi  | 24234322342 |
+|   3 | Rohit |   33 | Mumbai |  2323232321 |
+|   4 | Rohit |   33 | Mumbai |  2323232323 |
+|   5 | Rohit |   33 | Mumbai |  2323232324 |
+|   7 | Rohit |   33 | Mumbai |  2323232326 |
+| 500 | Rohit |   33 | Mumbai |  2323232327 |
+| 501 | Rohit |   33 | Mumbai |  2323232328 |
+| 502 | Rohit |   18 | Mumbai |  2323232329 |
++-----+-------+------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into people values(6,'abc',44,32424422342);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into people values(6,'abc',44,default ,32424422342);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from people;
++-----+-------+------+--------+-------------+
+| id  | name  | age  | city   | contact     |
++-----+-------+------+--------+-------------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 |
+|   2 | raj   |   33 | Delhi  | 24234322342 |
+|   3 | Rohit |   33 | Mumbai |  2323232321 |
+|   4 | Rohit |   33 | Mumbai |  2323232323 |
+|   5 | Rohit |   33 | Mumbai |  2323232324 |
+|   6 | abc   |   44 | Mumbai | 32424422342 |
+|   7 | Rohit |   33 | Mumbai |  2323232326 |
+| 500 | Rohit |   33 | Mumbai |  2323232327 |
+| 501 | Rohit |   33 | Mumbai |  2323232328 |
+| 502 | Rohit |   18 | Mumbai |  2323232329 |
++-----+-------+------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> alter table people add email varchar(30);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from people;
++-----+-------+------+--------+-------------+-------+
+| id  | name  | age  | city   | contact     | email |
++-----+-------+------+--------+-------------+-------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 | NULL  |
+|   2 | raj   |   33 | Delhi  | 24234322342 | NULL  |
+|   3 | Rohit |   33 | Mumbai |  2323232321 | NULL  |
+|   4 | Rohit |   33 | Mumbai |  2323232323 | NULL  |
+|   5 | Rohit |   33 | Mumbai |  2323232324 | NULL  |
+|   6 | abc   |   44 | Mumbai | 32424422342 | NULL  |
+|   7 | Rohit |   33 | Mumbai |  2323232326 | NULL  |
+| 500 | Rohit |   33 | Mumbai |  2323232327 | NULL  |
+| 501 | Rohit |   33 | Mumbai |  2323232328 | NULL  |
+| 502 | Rohit |   18 | Mumbai |  2323232329 | NULL  |
++-----+-------+------+--------+-------------+-------+
+10 rows in set (0.00 sec)
+
+mysql> update people set email='rohit12@gmail.com';
+Query OK, 10 rows affected (0.00 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> select * from people;
++-----+-------+------+--------+-------------+-------------------+
+| id  | name  | age  | city   | contact     | email             |
++-----+-------+------+--------+-------------+-------------------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 | rohit12@gmail.com |
+|   2 | raj   |   33 | Delhi  | 24234322342 | rohit12@gmail.com |
+|   3 | Rohit |   33 | Mumbai |  2323232321 | rohit12@gmail.com |
+|   4 | Rohit |   33 | Mumbai |  2323232323 | rohit12@gmail.com |
+|   5 | Rohit |   33 | Mumbai |  2323232324 | rohit12@gmail.com |
+|   6 | abc   |   44 | Mumbai | 32424422342 | rohit12@gmail.com |
+|   7 | Rohit |   33 | Mumbai |  2323232326 | rohit12@gmail.com |
+| 500 | Rohit |   33 | Mumbai |  2323232327 | rohit12@gmail.com |
+| 501 | Rohit |   33 | Mumbai |  2323232328 | rohit12@gmail.com |
+| 502 | Rohit |   18 | Mumbai |  2323232329 | rohit12@gmail.com |
++-----+-------+------+--------+-------------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> update people set email='abc@gmail.com' where id = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from people;
++-----+-------+------+--------+-------------+-------------------+
+| id  | name  | age  | city   | contact     | email             |
++-----+-------+------+--------+-------------+-------------------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 | abc@gmail.com     |
+|   2 | raj   |   33 | Delhi  | 24234322342 | rohit12@gmail.com |
+|   3 | Rohit |   33 | Mumbai |  2323232321 | rohit12@gmail.com |
+|   4 | Rohit |   33 | Mumbai |  2323232323 | rohit12@gmail.com |
+|   5 | Rohit |   33 | Mumbai |  2323232324 | rohit12@gmail.com |
+|   6 | abc   |   44 | Mumbai | 32424422342 | rohit12@gmail.com |
+|   7 | Rohit |   33 | Mumbai |  2323232326 | rohit12@gmail.com |
+| 500 | Rohit |   33 | Mumbai |  2323232327 | rohit12@gmail.com |
+| 501 | Rohit |   33 | Mumbai |  2323232328 | rohit12@gmail.com |
+| 502 | Rohit |   18 | Mumbai |  2323232329 | rohit12@gmail.com |
++-----+-------+------+--------+-------------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> update people set email='xyz@gmail.com', city='Mumbai' where id = 2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from people;
++-----+-------+------+--------+-------------+-------------------+
+| id  | name  | age  | city   | contact     | email             |
++-----+-------+------+--------+-------------+-------------------+
+|   1 | Rohit |   33 | Mumbai |  2323232322 | abc@gmail.com     |
+|   2 | raj   |   33 | Mumbai | 24234322342 | xyz@gmail.com     |
+|   3 | Rohit |   33 | Mumbai |  2323232321 | rohit12@gmail.com |
+|   4 | Rohit |   33 | Mumbai |  2323232323 | rohit12@gmail.com |
+|   5 | Rohit |   33 | Mumbai |  2323232324 | rohit12@gmail.com |
+|   6 | abc   |   44 | Mumbai | 32424422342 | rohit12@gmail.com |
+|   7 | Rohit |   33 | Mumbai |  2323232326 | rohit12@gmail.com |
+| 500 | Rohit |   33 | Mumbai |  2323232327 | rohit12@gmail.com |
+| 501 | Rohit |   33 | Mumbai |  2323232328 | rohit12@gmail.com |
+| 502 | Rohit |   18 | Mumbai |  2323232329 | rohit12@gmail.com |
++-----+-------+------+--------+-------------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql>

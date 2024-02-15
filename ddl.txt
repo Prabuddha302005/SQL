@@ -1,0 +1,291 @@
+Microsoft Windows [Version 10.0.19045.3930]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.36 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use itv;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_itv |
++---------------+
+| student       |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sid     | int         | NO   | PRI | NULL    |       |
+| sname   | varchar(30) | NO   |     | NULL    |       |
+| sage    | int         | NO   |     | NULL    |       |
+| scity   | varchar(30) | YES  |     | NULL    |       |
+| fees    | float       | NO   |     | NULL    |       |
+| roll_no | int         | NO   | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> alter table student add column marks float not null;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sid     | int         | NO   | PRI | NULL    |       |
+| sname   | varchar(30) | NO   |     | NULL    |       |
+| sage    | int         | NO   |     | NULL    |       |
+| scity   | varchar(30) | YES  |     | NULL    |       |
+| fees    | float       | NO   |     | NULL    |       |
+| roll_no | int         | NO   | UNI | NULL    |       |
+| marks   | float       | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student rename sname to student_full_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to student_full_name' at line 1
+mysql> alter table student rename sname to student_full_name varchar(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to student_full_name varchar(30)' at line 1
+mysql> alter table student rename sname student_full_name varchar(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student_full_name varchar(30)' at line 1
+mysql> alter table student rename sname student_full_name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student_full_name' at line 1
+mysql> alter table student change sname student_full_name varchar(30);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| sid               | int         | NO   | PRI | NULL    |       |
+| student_full_name | varchar(30) | YES  |     | NULL    |       |
+| sage              | int         | NO   |     | NULL    |       |
+| scity             | varchar(30) | YES  |     | NULL    |       |
+| fees              | float       | NO   |     | NULL    |       |
+| roll_no           | int         | NO   | UNI | NULL    |       |
+| marks             | float       | NO   |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student rename sid StudentID int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'StudentID int' at line 1
+mysql> alter table student change sid StudentID int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| StudentID         | int         | NO   | PRI | NULL    |       |
+| student_full_name | varchar(30) | YES  |     | NULL    |       |
+| sage              | int         | NO   |     | NULL    |       |
+| scity             | varchar(30) | YES  |     | NULL    |       |
+| fees              | float       | NO   |     | NULL    |       |
+| roll_no           | int         | NO   | UNI | NULL    |       |
+| marks             | float       | NO   |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student modify fees double;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| StudentID         | int         | NO   | PRI | NULL    |       |
+| student_full_name | varchar(30) | YES  |     | NULL    |       |
+| sage              | int         | NO   |     | NULL    |       |
+| scity             | varchar(30) | YES  |     | NULL    |       |
+| fees              | double      | YES  |     | NULL    |       |
+| roll_no           | int         | NO   | UNI | NULL    |       |
+| marks             | float       | NO   |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student rename studentData;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_itv |
++---------------+
+| studentdata   |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> alter table studentdata modify fees double not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studentdata;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| StudentID         | int         | NO   | PRI | NULL    |       |
+| student_full_name | varchar(30) | YES  |     | NULL    |       |
+| sage              | int         | NO   |     | NULL    |       |
+| scity             | varchar(30) | YES  |     | NULL    |       |
+| fees              | double      | NO   |     | NULL    |       |
+| roll_no           | int         | NO   | UNI | NULL    |       |
+| marks             | float       | NO   |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table studentdata modify fees double not null unique;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studentdata;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| StudentID         | int         | NO   | PRI | NULL    |       |
+| student_full_name | varchar(30) | YES  |     | NULL    |       |
+| sage              | int         | NO   |     | NULL    |       |
+| scity             | varchar(30) | YES  |     | NULL    |       |
+| fees              | double      | NO   | UNI | NULL    |       |
+| roll_no           | int         | NO   | UNI | NULL    |       |
+| marks             | float       | NO   |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table studentdata drop marks;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studentdata;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| StudentID         | int         | NO   | PRI | NULL    |       |
+| student_full_name | varchar(30) | YES  |     | NULL    |       |
+| sage              | int         | NO   |     | NULL    |       |
+| scity             | varchar(30) | YES  |     | NULL    |       |
+| fees              | double      | NO   | UNI | NULL    |       |
+| roll_no           | int         | NO   | UNI | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_itv |
++---------------+
+| studentdata   |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> drop studentdata;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'studentdata' at line 1
+mysql> drop table studentdata;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table product(pid int primary key, pname varchar(30) not null, p_m_date date not null, p_e_date date not null, price float not null);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc product;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| pid      | int         | NO   | PRI | NULL    |       |
+| pname    | varchar(30) | NO   |     | NULL    |       |
+| p_m_date | date        | NO   |     | NULL    |       |
+| p_e_date | date        | NO   |     | NULL    |       |
+| price    | float       | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into product values(1,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from product;
++-----+-----------+------------+------------+-------+
+| pid | pname     | p_m_date   | p_e_date   | price |
++-----+-----------+------------+------------+-------+
+|   1 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
++-----+-----------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into product values(2,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(3,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(4,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(5,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(6,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(7,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(8,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(9,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into product values(10,'ice-cream','2024-02-14','2024-02-25',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from product;
++-----+-----------+------------+------------+-------+
+| pid | pname     | p_m_date   | p_e_date   | price |
++-----+-----------+------------+------------+-------+
+|   1 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   2 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   3 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   4 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   5 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   6 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   7 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   8 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|   9 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
+|  10 | ice-cream | 2024-02-14 | 2024-02-25 |    25 |
++-----+-----------+------------+------------+-------+
+10 rows in set (0.00 sec)
+
+mysql> truncate table product;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from product;
+Empty set (0.00 sec)
+
+mysql> desc product;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| pid      | int         | NO   | PRI | NULL    |       |
+| pname    | varchar(30) | NO   |     | NULL    |       |
+| p_m_date | date        | NO   |     | NULL    |       |
+| p_e_date | date        | NO   |     | NULL    |       |
+| price    | float       | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
