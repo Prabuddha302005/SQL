@@ -1,0 +1,85 @@
+
+/* 
+1. Basic SQL Commands:
+==>SELECT: Retrieving data from a database.
+==>INSERT: Adding new records to a table.
+==>CREATE TABLE: Creating a new table.
+==>UPDATE: Modifying existing records in a table.
+==>DELETE: Removing records from a table.
+==>ALTER TABLE: Modifying existing table structure.
+==>DROP TABLE: Deleting a table. 
+*/
+
+
+show databases;
+use learning;
+
+-- CREATE TABLE: Creating a new table.
+
+create table user(
+u_id int primary key,
+u_name varchar(50) not null,
+u_age int not null,
+u_location varchar(50) default 'Mumbai'
+);
+
+-- INSERT: Adding new records to a table.
+
+insert into user (u_id, u_name, u_age, u_location) 
+VALUES(01, "Jon Doe", 20, default),
+(02, "Cassie", 25, 'Delhi'),(03, "Ram Khan", 35, 'Pune'),
+(04, "Salman Joshi", 32, 'Kolkata'),
+(05, "Akash Varma", 40, 'Banglore');  
+
+
+
+-- SELECT: Retrieving data from a database.
+select * from user;
+
+-- UPDATE: Modifying existing records in a table. 
+update user set u_name="Baachan" where u_id=2;
+
+-- DELETE: Removing records from a table.
+delete from user where u_id = 5;
+
+-- ALTER TABLE: Modifying existing table structure.
+alter table user add column u_email varchar(50) not null;  -- adding a new column.
+alter table user change u_location u_city varchar(30); -- changing column name.
+alter table user drop column u_email; -- droping a column.
+alter table user add column product_price int not null; -- adding a new colum
+alter table user modify product_price float;  -- changing datatype. 
+alter table user rename myuser; -- changing table name
+desc myuser;
+
+/*
+2. Data Manipulation Language (DML):
+SELECT: Retrieving data from one or more tables.
+INSERT INTO: Adding new records into a table.
+UPDATE: Modifying existing records in a table.
+DELETE: Removing records from a table.
+
+3. Data Definition Language (DDL):
+CREATE TABLE: Creating new tables.
+ALTER TABLE: Modifying existing table structures.
+DROP TABLE: Deleting tables.
+CREATE INDEX: Creating indexes on tables.
+
+4. Filtering and Sorting Data:
+WHERE: Filtering rows based on conditions.
+ORDER BY: Sorting rows in ascending or descending order.
+GROUP BY: Grouping rows based on common attributes.
+HAVING: Filtering grouped data.
+*/
+
+update user set u_name="Baachan" where u_id=2; -- Filtering rows based on conditions
+
+select * from myuser order by u_age desc;  -- Sorting rows in ascending or descending order. 
+
+select * from myuser order by u_age desc limit 3; -- limiting the search
+
+
+
+
+
+
+
