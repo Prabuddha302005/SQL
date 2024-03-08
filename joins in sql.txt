@@ -1,0 +1,76 @@
+-- joins in sql
+
+use learning;
+
+create table student(
+student_id int primary key,
+name varchar(50) not null
+);
+
+create table course(
+student_id int primary key,
+course_name varchar(30) not null
+);
+
+alter table course change student_id course_id int;
+
+insert into student values
+(001, "Bob"), (002,"Mark"), 
+(003,"adam");
+
+insert into course values(002, "English"), (005, "math"),
+(103, "Science"), (107, "Computer Science"); 
+insert into course values(001, "IT");
+
+select * from student;
+select * from course;
+
+-- 1 inner join
+ 
+select * 
+from student
+inner join course
+on student.student_id = course.course_id;
+
+-- using alias
+
+select * 
+from student as s
+inner join course as c
+on s.student_id = c.course_id;
+
+-- 2 left join
+
+select * 
+from student as s
+left join course as c
+on s.student_id = c.course_id;
+
+-- 3 right join
+select *
+from student as s
+right join course as c
+on s.student_id = c.course_id;
+
+-- 4 full join 
+select * 
+from student as s
+left join course as c
+on s.student_id = c.course_id
+UNION
+select * 
+from student as s
+right join course as c
+on s.student_id = c.course_id;
+
+-- 5 natural join
+select * 
+from student
+natural join
+course;
+
+-- 6 cross join
+select * 
+from student
+cross join
+course;
