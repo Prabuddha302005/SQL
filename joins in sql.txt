@@ -74,3 +74,20 @@ select *
 from student
 cross join
 course;
+
+-- 7 self join
+create table selfEmployee
+( employee_id int primary key,
+name varchar(50) not null,
+manager_id int
+);
+
+insert into selfEmployee values(101, "adam", 103),(102, "bob", 104),
+(103, "casey", null),(104,"donald", 103);
+
+select * from selfEmployee;
+
+select a.name, b.name
+from selfEmployee as a 
+join selfEmployee as b
+ON a.employee_id = b.manager_id;
