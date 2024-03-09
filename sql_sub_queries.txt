@@ -1,0 +1,23 @@
+-- sql sub queries
+
+use learning;
+show tables;
+
+create table car(
+id int primary key,
+name varchar(30) not null,
+city varchar(30),
+price float not null
+);
+
+insert into car values(1, "Mahendra XUV 700", "Mumbai", 2500000),
+(2 , "Tata Harrier", "Mumbai", 2500000),
+(3 , "Audi", "Delhi", 8000000),
+(4 , "Mercedes", "Mumbai", 9000000),
+(5 , "Porsche", "Mumbai", 200000000);
+
+select * from car;
+
+select * from car where price > (select AVG(price) from car);
+select MAX(price) from (select * from car where city = "Delhi") as temp;
+select * from car where price > any (select price from car where name in ('Porsche', 'Audi'));
