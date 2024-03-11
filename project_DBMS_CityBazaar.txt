@@ -1,0 +1,202 @@
+-- Database management system of CityBazaar SQL case study
+
+
+create database project;
+use project;
+
+create table user(
+user_id int primary key,
+user_name varchar(50) not null,
+user_address varchar(80) not null,
+user_email varchar(50) not null,
+user_number double not null
+);
+
+INSERT INTO user VALUES
+(1, 'Ramesh Kumar', '123, ABC Street, Mumbai, Maharashtra', 'ramesh@example.com', 9876543210),
+(2, 'Sita Sharma', '456, XYZ Road, Mumbai, Maharashtra', 'sita@example.com', 8765432109),
+(3, 'Amit Patel', '789, PQR Avenue, Mumbai, Maharashtra', 'amit@example.com', 7654321098),
+(4, 'Priya Singh', '101, LMN Lane, New Delhi, Delhi', 'priya@example.com', 6543210987),
+(5, 'Rajesh Singh', '321, LMN Street, Chennai, Tamil Nadu', 'rajesh@example.com', 5432109876),
+(6, 'Pooja Gupta', '654, DEF Road, New Delhi, Delhi', 'pooja@example.com', 4321098765),
+(7, 'Vikram Verma', '987, GHI Avenue, Pune, Maharashtra', 'vikram@example.com', 3210987654);
+
+select * from user;
+
+
+create table nearbyStores(
+s_id int primary key,
+s_name varchar(50) not null,
+s_category varchar(30) not null,
+s_address varchar(30) not null
+);
+
+INSERT INTO nearbyStores  VALUES
+(1, 'Grocery Bazaar', 'Grocery', '123, ABC Road, Mumbai'),
+(2, 'Electro World', 'Electronics', '456, XYZ Street, New Delhi'),
+(3, 'Green Farms', 'Supermarket', '789, PQR Avenue, Bangalore'),
+(4, 'Fashion Trendz', 'Clothing', '101, LMN Lane, Kolkata'),
+(5, 'Health Hub', 'Pharmacy', '321, LMN Street, Chennai'),
+(6, 'Tech Zone', 'Electronics', '654, DEF Road, Hyderabad'),
+(7, 'Fresh Mart', 'Supermarket', '987, GHI Avenue, Pune');
+select * from nearbyStores;
+
+create table products(
+product_id int primary key,
+store_id int,
+product_name varchar(50) not null,
+category varchar(30),
+product_price float not null,
+product_desc varchar(50) not null,
+foreign key (store_id) references nearbyStores(s_id)
+);
+
+INSERT INTO products VALUES
+(1, 1, 'Basmati Rice', 'Grocery', 50.00, 'Premium quality Basmati Rice'),
+(2, 2, 'Samsung 55" LED TV', 'Electronics', 45000.00, 'Full HD LED TV with Smart features'),
+(3, 3, 'Washington Apples', 'Fruits', 120.00, 'Fresh and Juicy Washington Apples'),
+(4, 4, 'Men\'s Cotton T-shirt', 'Clothing', 350.00, 'Comfortable and stylish cotton T-shirt'),
+(5, 5, 'Crocin Pain Relief', 'Medicine', 25.00, 'Effective pain relief tablets'),
+(6, 6, 'Apple iPhone 12', 'Electronics', 80000.00, 'Latest Apple smartphone with A14 Bionic chip'),
+(7, 7, 'Amul Gold Milk', 'Dairy', 25.00, 'Pure and nutritious cow milk');
+
+
+
+create table cart(
+cart_id int primary key,
+cart_price float not null,
+product_quantity int not null,
+product_price float not null,
+product_id int,
+user_id int,
+foreign key (product_id) references products(product_id),
+foreign key (user_id) references user(user_id)
+);
+select * from cart;
+INSERT INTO cart VALUES
+(1, 1000.00, 2, 500.00, 1, 1),
+(2, 750.50, 1, 750.50, 2, 3),
+(3, 300.00, 3, 100.00, 3, 2),
+(4, 600.75, 1, 600.75, 4, 4);
+
+
+create table delivery(
+delivery_id int primary key,
+name varchar(50) not null,
+contact double not null
+);
+
+select * from delivery;
+INSERT INTO delivery  VALUES
+(1, 'John Doe', 9876543210),
+(2, 'Jane Smith', 8765432109),
+(3, 'David Johnson', 7654321098),
+(4, 'Emily Brown', 6543210987);
+
+create table orders(
+order_id int primary key,
+product_id int,
+user_id int,
+store_id int,
+delivery_id int,
+order_date date not null,
+order_value float not null,
+foreign key (product_id) references products(product_id),
+foreign key (user_id) references user(user_id),
+foreign key (store_id) references nearbyStores(s_id),
+foreign key (delivery_id) references delivery(delivery_id)
+);
+INSERT INTO orders VALUES
+(1, 1, 1, 1, 1, '2024-03-09', 100.00),
+(2, 2, 2, 2, 2, '2024-03-09', 200.50),
+(3, 3, 3, 3, 3, '2024-03-09', 150.00),
+(4, 4, 4, 4, 4, '2024-03-09', 80.75);
+
+select * from orders;
+create table orderDetails(
+id int primary key,
+order_id int,
+product_id int,
+foreign key (order_id) references orders(order_id),
+foreign key (product_id) references products(product_id)
+
+);
+
+INSERT INTO orderDetails (id, order_id, product_id) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4);
+
+select * from user;
+select * from nearbyStores;
+select * from products;
+select * from cart;
+select * from delivery;
+select * from orders;
+select * from orderDetails;
+
+
+desc user;
+desc nearbyStores;
+desc products;
+desc cart;
+desc delivery;
+desc orders;
+desc orderDetails;
+
+-- operations on the tables
+
+select user_id,user_name from user where user_id not in(select user_id from orders);
+
+SELECT product_name, product_price FROM products
+ORDER BY product_price DESC
+LIMIT 1;
+
+select user_name from user where user_id
+in(select user_id from cart where user_id in(
+select user_id from orders
+));
+
+select * from nearbyStores
+left join products 
+on nearbyStores.s_name = products.product_name
+UNION
+select * from nearbyStores
+right join products
+on nearbyStores.s_name = products.product_name;
+
+select * from orders
+inner join user
+on orders.order_id = user.user_id;
+
+select * from nearbyStores
+inner join products
+on nearbyStores.s_id = products.product_id;
+
+select s.s_name nearbyStores, s.s_category, p.product_name products from nearbyStores s 
+inner join products p on s.s_id = p.product_id;
+
+SELECT *
+FROM orders
+LEFT JOIN user ON orders.user_id = user.user_id;
+
+SELECT *
+FROM user
+RIGHT JOIN orders ON user.user_id = orders.user_id;
+
+
+
+SELECT *
+FROM cart
+INNER JOIN user ON cart.user_id = user.user_id;
+
+SELECT cart.cart_id, cart.cart_price, cart.product_quantity, 
+user.user_name, user.user_email, user.user_number
+FROM cart
+INNER JOIN user ON cart.user_id = user.user_id;
+
+SELECT cart.cart_id, cart.cart_price, cart.product_quantity, 
+user.user_name, user.user_email, user.user_number
+FROM cart
+LEFT JOIN user ON cart.user_id = user.user_id;
